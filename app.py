@@ -23,7 +23,7 @@ def upload_image():
     
     file = request.files["image"]
     file_path = os.path.join("uploads", file.filename)
-    file.save(file_path)
+    file.save(Descargas)
     
     # Leer la imagen como escala de grises
     img = cv2.imread(file_path, cv2.IMREAD_GRAYSCALE)
@@ -41,5 +41,5 @@ def upload_image():
 
 if __name__ == "__main__":
     os.makedirs("uploads", exist_ok=True)
-    app.run(host="127.0.0.1", port=5000, debug=True)
+    app.run(host="0.0.0.0", port=5000)
 
