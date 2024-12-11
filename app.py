@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS
 import cv2
 import numpy as np
@@ -11,9 +11,10 @@ CORS(app)
 recognizer = cv2.face.LBPHFaceRecognizer_create()
 recognizer.read("model-wi.xml")
 
+# Ruta para servir el HTML
 @app.route("/", methods=["GET"])
 def index():
-    return "Servidor funcionando. Sube una imagen para procesar."
+    return render_template("index.html")
 
 @app.route("/upload", methods=["POST"])
 def upload_image():
