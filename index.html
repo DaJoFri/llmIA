@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Modelo IA</title>
+</head>
+<body>
+    <h1>Sube una imagen para análisis</h1>
+    <form id="upload-form">
+        <input type="file" id="image" accept="image/*" required />
+        <button type="submit">Subir</button>
+    </form>
+    <p id="result"></p>
+
+    <script>
+        const form = document.getElementById("upload-form");
+        const result = document.getElementById("result");
+
+        form.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const fileInput = document.getElementById("image");
+            const file = fileInput.files[0];
+
+            const formData = new FormData();
+            formData.append("image", file);
+
+            try {
+                const response = await fetch("https://mi-app-en-render.onrender.com/upload", {
+                    method: "POST",
+                    body: formData,
+                });
+                const text = await response.text();
+                result.textContent = `Resultado del análisis: ${text}`;
+            } catch (error) {
+                result.textContent = "Error al procesar la imagen.";
+                console.error(error);
+            }
+        });
+    </script>
+</body>
+</html>
